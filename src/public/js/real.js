@@ -8,26 +8,26 @@ formCrear.addEventListener('submit', (e) => {
 
     const data = new FormData(e.target)
     const prod = Object.fromEntries(data)
+    console.log(prod)
     socket.emit('nuevoProducto', prod)
-
-    socket.on('mensaje' , (mensaje) => {
-Swal.fire(
-    mensaje
-    )})
+    socket.on('mensajeCreado' , (mensaje) => {
+           Swal.fire(
+             mensaje)
+    })
     e.target.reset()
 })
 
-formEliminar.addEventListener('submit', (e) => {
-    e.preventDefault()
+// formEliminar.addEventListener('submit', (e) => {
+//     e.preventDefault()
 
-    const dataId = new FormData(e.target)
-    const id = Object.values(dataId)
-    socket.emit('productoEliminar' , id)
+//     const dataId = new FormData(e.target)
+//     const id = Object.values(dataId)
+//     socket.emit('productoEliminar' , id)
 
-    socket.on('mensaje' , (mensaje) => {
-        Swal.fire(
-            mensaje
-            )})
-            e.target.reset()
-})
+//     socket.on('mensaje' , (mensaje) => {
+//         Swal.fire(
+//             mensaje
+//             )})
+//             e.target.reset()
+// })
 

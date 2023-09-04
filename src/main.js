@@ -34,18 +34,16 @@ const upload = multer({storage: storage})
 //Conexion de socket
 io.on("Connection", (socket) => {
     console.log("Conectado a socket.io")
-
 socket.on('nuevoProducto', (prod) => {
-    addProduct(prod)
+    console.log(prod)
+    // new ProducManager.addProduct(prod)
+    socket.emit("mensajeCreado" , "El producto se creo correctamente")
 })
-
-socket.emit("mensaje" , "El producto se creo correctamente")
-
-socket.on('productoEliminar', (id) => {
-    deleteProduct(id)
-})
-
-socket.emit("mensaje" , "El producto se elimino correctamente")
+// socket.on('productoEliminar', (id) => {
+//     console.log(id)
+//     new ProducManager.deleteProduct(id)
+//     io.emit("mensaje" , "El producto se elimino correctamente")
+// })
 })
 
 //Routes
