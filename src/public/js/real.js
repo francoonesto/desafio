@@ -17,17 +17,18 @@ formCrear.addEventListener('submit', (e) => {
     e.target.reset()
 })
 
-// formEliminar.addEventListener('submit', (e) => {
-//     e.preventDefault()
+formEliminar.addEventListener('submit', (e) => {
+    e.preventDefault()
 
-//     const dataId = new FormData(e.target)
-//     const id = Object.values(dataId)
-//     socket.emit('productoEliminar' , id)
-
-//     socket.on('mensaje' , (mensaje) => {
-//         Swal.fire(
-//             mensaje
-//             )})
-//             e.target.reset()
-// })
+    const dataId = new FormData(e.target)
+    const data = Object.fromEntries(dataId)
+    const id = JSON.stringify(data)
+    console.log(id)
+    socket.emit('productoEliminar' , id)
+    socket.on('mensajeEliminado' , (mensaje) => {
+        Swal.fire(
+            mensaje
+            )})
+            e.target.reset()
+})
 

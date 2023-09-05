@@ -60,11 +60,11 @@ throw new Error("Producto no existe")
     }
 async deleteProduct(id) {
     const products = JSON.parse(await fs.readFile(this.path , 'utf-8'))
-    const prods = products.find(pro => pro.id === id)
+    const prods = products.find(prods => prods.id === id)
     if(!prods)
-    {throw new Error("Producto no existe")}
+    {throw new error ("No encontrado")}
     else
-    {await fs.writeFile(this.path , JSON.stringify(products.filter(p => p.id != id )))}}
+    {await fs.writeFile(this.path , JSON.stringify(products.filter(p => p.id != id )))}
 }
-
+}
 

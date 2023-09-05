@@ -7,6 +7,7 @@ import routerCart from './routes/cart.routes.js'
 import routerViews from './routes/views.routes.js'
 import path from 'path'
 import {__dirname} from './path.js'
+import { ProductManager } from './controllers/productManager.js'
 
 const PORT = 8080
 const app = express()
@@ -32,18 +33,19 @@ app.set('views',path.resolve(__dirname,'./views'))
 const upload = multer({storage: storage})
 
 //Conexion de socket
-io.on("Connection", (socket) => {
+io.on("connection", (socket) => {
     console.log("Conectado a socket.io")
+    const product = new ProductManager('src/models/productos.json')
 socket.on('nuevoProducto', (prod) => {
     console.log(prod)
-    // new ProducManager.addProduct(prod)
+  product.addProduct(prod)
     socket.emit("mensajeCreado" , "El producto se creo correctamente")
 })
-// socket.on('productoEliminar', (id) => {
-//     console.log(id)
-//     new ProducManager.deleteProduct(id)
-//     io.emit("mensaje" , "El producto se elimino correctamente")
-// })
+socket.on('productoEliminar', (id) => {
+    console.log(id)
+    product.deleteProduct(id)
+    io.emit("mensajeEliminado" , "El producto se elimino correctamente")
+})
 })
 
 //Routes
