@@ -1,0 +1,39 @@
+#chatContainer{
+    background:lightgrey;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    align-items:stretch;
+  }
+  .messageContainer{
+    display:flex;
+    justify-content: flex-start;
+    padding-left: 9%;
+    padding-right: 9%;
+    padding-top:.3%;
+    padding-bottom:.3%;
+  }
+
+  .bubble{
+    max-width:65%;
+    min-width:7%;
+   padding:1%;
+    padding-left: 3%;
+    background-color: #fbfbfb;
+      border-radius: 7.5px;
+      box-shadow: 0 1px 0.5px rgba(0,0,0,.13);
+  }
+  .bubble .meta{
+    color: rgba(0,0,0,.45);
+  }
+  .bubble .author{
+    color: #6bcbef;
+  }
+  .messageContainer:nth-child(even){
+    justify-content: flex-end;
+  }
+  .messageContainer:nth-child(even)>.bubble{
+        background-color: #dcf8c6;
+  }

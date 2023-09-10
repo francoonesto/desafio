@@ -2,16 +2,21 @@ import express from 'express'
 import multer from 'multer'
 import {engine} from 'express-handlebars'
 import {Server} from 'socket.io'
-import routerProd from './routes/product.routes.js'
-import routerCart from './routes/cart.routes.js'
-import routerViews from './routes/views.routes.js'
+import mongoose from 'mongoose'
+import prodRouter from './routes/products.routes.js'
+import cartRouter from './routes/cart.routes.js'
+import messRouter from './routes/message.routes.js'
 import path from 'path'
 import {__dirname} from './path.js'
 import { ProductManager } from './controllers/productManager.js'
+import messagesModel from './models/messages.models.js'
 
 const PORT = 8080
 const app = express()
 
+mongoose.connect('mongodb+srv://francoonesto2001:Franco42178708@francoo.m4cx3dq.mongodb.net/?retryWrites=true&w=majority')
+.then(() => console.log('BDD conectada'))
+.catch((error) => console.log('Error en conexion', error))
 //Server
 const server = app.listen(PORT,() => {console.log(`Server on port ${PORT}`)})
 
@@ -46,13 +51,20 @@ socket.on('productoEliminar', (id) => {
     product.deleteProduct(id)
     io.emit("mensajeEliminado" , "El producto se elimino correctamente")
 })
+socket.on('mensaje' , info => {
+    const mensajes = messagesModel
+    console.log(info)
+    mensajes.push(info)
+    io.emit('mensajes' , mensajes)
+})
 })
 
 //Routes
 app.use('/static', express.static(path.join(__dirname , '/public')))
-app.use('/api/products', routerProd)
-app.use('api/carts', routerCart)
-app.use('/realtimeproducts', routerViews)
+app.use('/api/products', prodRouter)
+app.use('api/carts', cartRouter)
+app.use('/api/messages' , messRouter)
+// app.use('/realtimeproducts', routerViews)
 
 //HBS
 app.get('/static', (req,res) =>{
@@ -62,6 +74,13 @@ app.get('/static', (req,res) =>{
     rutaJS:"real",
    })
 })
+app.get('/static/chat', (req,res) =>{
+    res.render('chat',{
+     titulo:"chat",
+     rutaCSS:"chat",
+     rutaJS:"chat",
+    })
+ })
 
 
 

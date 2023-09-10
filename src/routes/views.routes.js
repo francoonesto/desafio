@@ -1,14 +1,14 @@
-import { Router } from 'express'
-import  { ProductManager }  from '../controllers/productManager.js'
+// import { Router } from 'express'
+// import  { ProductManager }  from '../controllers/productManager.js'
 
-const prodManager = new ProductManager('src/models/productos.json')
+// const prodManager = new ProductManager('src/models/productos.json')
 
-const routerViews = Router()
+// const routerViews = Router()
 
-routerViews.get('/' , async(req,res) =>{
-    const prods = await prodManager.getProducts()
+// routerViews.get('/' , async(req,res) =>{
+//     const prods = await prodManager.getProducts()
 
-    res.status(200).send(prods)
-})
+//     res.status(200).send(prods)
+// })
 
-export default routerViews
+// export default routerViews
