@@ -3,7 +3,7 @@ import messageModel from "../models/messages.models.js"
 
 const messRouter = Router()
 
-messRouter.post('/', async (req,res) => {
+messRouter.get('/', async (req,res) => {
     try{
         const mess = await messageModel.find()
         res.status(200).send({resultado:'OK' ,message: mess})

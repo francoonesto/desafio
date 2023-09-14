@@ -13,13 +13,24 @@
         <label for="category">Category</label>
         <input type="text" name="category" required>
         <label for="status">Status</label>
-        <input type="string" name="status" required>
+        <input type="boolean" name="status" required>
         <button type="submit">Crear Producto</button>
     </form>
 
     <form id="formularioDeEliminar">
     <legend class="section_title">Eliminar Productos</legend>
     <label for="id">Coloco id correspondiente</label>
-    <input type="text" name="id" required>
+    <input type="string" name="id" required>
     <button type="submit">Eliminar Producto</button>
+    </form>
+
+<form id="formularioDeCarrito">
+    <legend class="section_title">Crear un Carrito</legend>
+    {{!-- <label for="cid">Id de Cart(sino lo conoce deje vacio)</label>
+    <input type="string" name="cid">
+    <label for="pid">Id de Producto</label>
+    <input type="string" name="pid" required>
+    <label for="quantity">Cantidad</label>
+    <input type="number" name="quantity" required> --}}
+    <button type="submit">Agregar</button>
     </form>
