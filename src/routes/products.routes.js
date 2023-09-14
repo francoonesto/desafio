@@ -36,10 +36,10 @@ prodRouter.put('/:id', async (req,res) => {
     const {id} = req.params
     const {title,description,price,code,category,stock,status} = req.body
     try{
-      const res = await prodModel.findByIdAndUpdate(id , {title,description,price,code,category,stock,status})
-      if(res){
-      res.status(200).send({resultado:'OK' ,message: res})
-}else{res.status(404).send({resultado:'Error' ,message: res})}
+      const respuesta = await prodModel.findByIdAndUpdate(id , {title,description,price,code,category,stock,status})
+      if(respuesta){
+      res.status(200).send({resultado:'OK' ,message: respuesta})
+}else{res.status(404).send({resultado:'Error' ,message: respuesta})}
 }
     catch(error){
      res.status(400).send({error: `Error , el producto no pudo ser actualizado : ${error}`})
@@ -50,10 +50,10 @@ prodRouter.delete('/:id' , async(req,res) => {
     const {id} = req.params
 
     try{
-        const res = await prodModel.findByIdAndDelete(id)
-        if(res){
-          res.status(200).send({resultado:'OK' ,message: res})
-    }else{res.status(404).send({resultado:'Error' ,message: res})}
+        const respuesta = await prodModel.findByIdAndDelete(id)
+        if(respuesta){
+          res.status(200).send({resultado:'OK' ,message: respuesta})
+    }else{res.status(404).send({resultado:'Error' ,message: respuesta})}
     }
       catch(error){
        res.status(400).send({error: `Error , el producto no pudo ser eliminado : ${error}`})
@@ -63,10 +63,10 @@ prodRouter.delete('/:id' , async(req,res) => {
 prodRouter.post('/', async (req,res) => {
     const {title,description,price,code,category,stock} = req.body
     try{
-      const res = await prodModel.create({title,description,price,code,category,stock})
-      if(res){
-        res.status(200).send({resultado:'OK' ,message: res})
-  }else{res.status(404).send({resultado:'Error' ,message: res})}
+      const respuesta = await prodModel.create({title,description,price,code,category,stock})
+      if(respuesta){
+        res.status(200).send({resultado:'OK' ,message: respuesta})
+  }else{res.status(404).send({resultado:'Error' ,message: respuesta})}
   }
     catch(error){
      res.status(400).send({error: `Error , el producto no pudo ser creado : ${error}`})

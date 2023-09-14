@@ -6,12 +6,9 @@ import mongoose, { Mongoose } from 'mongoose'
 import prodRouter from './routes/products.routes.js'
 import cartRouter from './routes/cart.routes.js'
 import messRouter from './routes/message.routes.js'
-import messageModel from './models/messages.models.js'
 import path from 'path'
 import {__dirname} from './path.js'
-import prodModel from './models/products.models.js'
-import cartModel from './models/carts.models.js'
-import { ObjectId } from 'mongodb'
+
 
 const PORT = 8080
 const app = express()
@@ -45,25 +42,6 @@ const upload = multer({storage: storage})
 //Conexion de socket
 io.on("connection", (socket) => {
     console.log("Conectado a socket.io")
-socket.on('nuevoProducto',async (prod) => {
-    console.log(prod)
-  await  prodModel.create(prod)
-    socket.emit("mensajeCreado" , "El producto se creo correctamente")
-})
-socket.on('productoEliminar',async (id) => {
-    console.log(id)
-
-  await  prodModel.deleteOne(mongoose.ObjectId.get(id))
-    io.emit("mensajeEliminado" , "El producto se elimino correctamente")
-})
-socket.on('nuevoCart',async (cartId) => {
-    console.log(cartId)
-    const cart =  await cartModel.find()
-    if(cart == ""){
-  await cartModel.create({})}
-
-    io.emit("mensaggeCreado" , "Cart encontrado/creado")
-})
 socket.on('mensaje' ,async (info) => {
     // const mensajes = messageModel.find(info)
 
@@ -83,17 +61,16 @@ app.use('/static', express.static(path.join(__dirname , '/public')))
 app.use('/api/products', prodRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/messages' , messRouter)
-// app.use('/realtimeproducts', routerViews)
 
 //HBS
-app.get('/static/form', (req,res) =>{
-   res.render('realTimeProducts',{
-    titulo:"RealTimeProducts",
-    rutaCSS:"real",
-    rutaJS:"real",
-   })
-})
-app.get('/static/chat', (req,res) =>{
+// app.get('/static/form', (req,res) =>{
+//    res.render('realTimeProducts',{
+//     titulo:"RealTimeProducts",
+//     rutaCSS:"real",
+//     rutaJS:"real",
+//    })
+// })
+app.get('/static', (req,res) =>{
     res.render('chat',{
      titulo:"chat",
      rutaCSS:"chat",
