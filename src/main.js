@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import express from 'express'
 import multer from 'multer'
 import {engine} from 'express-handlebars'
@@ -15,7 +16,7 @@ const app = express()
 
 const mensajes = []
 
-mongoose.connect('mongodb+srv://francoonesto2001:Franco42178708@francoo.m4cx3dq.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('BDD conectada'))
 .catch((error) => console.log('Error en conexion', error))
 
